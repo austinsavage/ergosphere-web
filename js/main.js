@@ -160,18 +160,27 @@ function renderList(data) {
 	});
 }
 
-function renderDetails(card) {
-	$('#deckId').val(card.deck_id);
-	$('#term').val(card.term);
-	$('#definition').val(card.definition);
-	
+function renderDetails(wine) {
+	$('#wineId').val(wine.id);
+	$('#name').val(wine.name);
+	$('#grapes').val(wine.grapes);
+	$('#country').val(wine.country);
+	$('#region').val(wine.region);
+	$('#year').val(wine.year);
+	$('#pic').attr('src', 'pics/' + wine.picture);
+	$('#description').val(wine.description);
 }
 
 // Helper function to serialize all the form fields into a JSON string
 function formToJSON() {
 	return JSON.stringify({
-		"deck_id": $('#deckId').val(), 
-		"term": $('#term').val(), 
-		"definition": $('#definition').val()
+		"id": $('#wineId').val(), 
+		"name": $('#name').val(), 
+		"grapes": $('#grapes').val(),
+		"country": $('#country').val(),
+		"region": $('#region').val(),
+		"year": $('#year').val(),
+		"picture": currentWine.picture,
+		"description": $('#description').val()
 		});
 }
