@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Cellar</title>
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+
+<div class="header">
+	<input type="text" id="searchKey"/>
+	<button id="btnSearch">Search</button>
+	<button id="btnAdd">New Wine</button>
+</div>
+
+
+<div class="leftArea">
+<ul id="wineList"></ul>
+</div>
+
+<form id="wineForm">
+	
+<div class="mainArea">
+
+<label>Deck ID:</label>
+<input id="deckId" name="deck_id" type="text" disabled />
+
+<label>Term:</label>
+<input type="text" id="term" name="term" required>
+
+<label>Definition:</label>
+<input type="text" id="definition" name="definition"/>
+
+<button id="btnSave">Save</button>
+<button id="btnDelete">Delete</button>
+
+</div>
+
+<div class="rightArea">
+
+<img id="pic" height="300"/>
+</div>
+
+</form>
+
+<script src="js/jquery-1.7.1.min.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>
