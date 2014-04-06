@@ -14,9 +14,6 @@
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="css/jumbotron/jumbotron.css" rel="stylesheet">
-
     <!-- Just for debugging purposes. Don't actually copy this line! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 
@@ -48,30 +45,41 @@
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
-        <h1>Study with Ergosphere</h1>
-        <p><a class="btn btn-primary btn-lg" role="button" href="topics.php">Study Now »</a></p>
+        <h1>Topics</h1>
       </div>
     </div>
 
-    <div class="container">
+    <div class="container" id="topics">
       <!-- Example row of columns -->
-      <div class="row">
-        <div class="col-md-4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="http://getbootstrap.com/examples/jumbotron/#" role="button">View details »</a></p>
-        </div>
-        <div class="col-md-4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="http://getbootstrap.com/examples/jumbotron/#" role="button">View details »</a></p>
-       </div>
-        <div class="col-md-4">
-          <h2>Heading</h2>
-          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-          <p><a class="btn btn-default" href="http://getbootstrap.com/examples/jumbotron/#" role="button">View details »</a></p>
-        </div>
-      </div>
+      <?php
+
+        $url = "https://ergosphere.co/api/topics";
+        $response = file_get_contents($url);
+        
+        $response = json_decode($response);
+
+        $build = "";
+
+        foreach ($response->topics as $key => $topic) {
+         
+
+          $build = <<<XYZ
+          
+            <div class="col-md-4">
+            
+              <h2>$topic->topic_name</h2>
+              <p>$topic->topic_description</p>
+              <p><a class="btn btn-default" href="view-topic.php?id=$topic->topic_id" role="button">Study Now! »</a></p>
+            </div>
+XYZ;
+
+echo $build;
+
+
+
+        }
+
+      ?>
 
       <hr>
 
@@ -80,12 +88,10 @@
       </footer>
     </div> <!-- /container -->
 
-
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="./Jumbotron Template for Bootstrap_files/jquery.min.js"></script>
-    <script src="./Jumbotron Template for Bootstrap_files/bootstrap.min.js"></script>
-  
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>  
 
 </body></html>

@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
 	$.ajax({ 
 	   type: "GET",
 	   dataType: "json",
@@ -9,12 +10,17 @@ $(document).ready(function() {
 
 	     $.each(data.topics, function(index,value) {
 
-	     	build += "<tr><td>" + value.topic_name + "</td><td>"
-	     			 + value.topic_description + "</td></tr>\n";
+	     	build += "<div class='col-md-4'>";
+          	build += "<h2>" + value.topic_name + "</h2>";
+          	build += "<p>" + value.topic_description + "</p>";
+          	build += "<p><a class='btn btn-default' href='view-topic.html?id=" + value.topic_id + "' role='button'>Study Now! »</a></p>";
+        	build += "</div>";
 
 	     });
 
-	     $("#topic_table tbody").html(build);
+	     var html = $("div#topics").html();
+
+	     $("div#topics").html(build + html);
 
 	   }
 	});

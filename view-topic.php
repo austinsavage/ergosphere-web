@@ -14,9 +14,6 @@
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="css/jumbotron/jumbotron.css" rel="stylesheet">
-
     <!-- Just for debugging purposes. Don't actually copy this line! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 
@@ -48,30 +45,89 @@
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
-        <h1>Study with Ergosphere</h1>
-        <p><a class="btn btn-primary btn-lg" role="button" href="topics.php">Study Now »</a></p>
+        <?php
+
+        if(isset($_GET['id'])){
+
+        $url = "https://ergosphere.co/api/topics/".$_GET["id"];
+
+        $response = file_get_contents($url);
+        
+        $response = json_decode($response);
+
+        $build=<<<BUILD
+
+          <h1>$response->topic_name Decks</h1>
+
+
+BUILD;
+
+        echo $build;
+
+        $url = "https://ergosphere.co/api/topics/".$_GET["id"]."/decks";
+
+        $response = file_get_contents($url);
+        
+        $response = json_decode($response);
+
+        $build = "";
+        
+        ?>
       </div>
     </div>
 
-    <div class="container">
+    <div class="container" id="topics">
       <!-- Example row of columns -->
-      <div class="row">
-        <div class="col-md-4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="http://getbootstrap.com/examples/jumbotron/#" role="button">View details »</a></p>
-        </div>
-        <div class="col-md-4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="http://getbootstrap.com/examples/jumbotron/#" role="button">View details »</a></p>
-       </div>
-        <div class="col-md-4">
-          <h2>Heading</h2>
-          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-          <p><a class="btn btn-default" href="http://getbootstrap.com/examples/jumbotron/#" role="button">View details »</a></p>
-        </div>
-      </div>
+      <?php
+
+        foreach ($response->decks as $key => $deck) {
+         
+          $random1 = rand(10, 30);
+          $random2 = rand(10, 30);
+          $random3 = rand(10, 30);
+
+          $build = <<<BUILD
+          
+            <div class="col-md-4">
+            
+              <h2>$deck->deck_name</h2>
+           
+              <div class="progress">
+                <div class="progress-bar progress-bar-success" style="width: $random1%">
+                  <span class="sr-only">35% Complete (success)</span>
+                </div>
+                <div class="progress-bar progress-bar-warning" style="width: $random2%">
+                  <span class="sr-only">20% Complete (warning)</span>
+                </div>
+                <div class="progress-bar progress-bar-danger" style="width: $random3%">
+                  <span class="sr-only">10% Complete (danger)</span>
+                </div>
+              </div>
+
+              <p><a class="btn btn-default" href="review-deck.php?id=$deck->deck_id" role="button">Study Now! »</a></p>
+           
+            </div>
+BUILD;
+
+echo $build;
+
+
+
+        }
+      }else{
+
+        $build = <<<BUILD
+
+          <div class="alert alert-warning">Oops! Looks like the ID is not set.</div>
+
+
+BUILD;
+
+        echo $build;
+
+      }
+
+      ?>
 
       <hr>
 
@@ -80,12 +136,10 @@
       </footer>
     </div> <!-- /container -->
 
-
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="./Jumbotron Template for Bootstrap_files/jquery.min.js"></script>
-    <script src="./Jumbotron Template for Bootstrap_files/bootstrap.min.js"></script>
-  
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>  
 
 </body></html>
